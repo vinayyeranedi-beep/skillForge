@@ -16,6 +16,7 @@ import {
   HelpCircle,
   ExternalLink,
 } from 'lucide-react';
+import { IndustryCertificationsTracker } from './IndustryCertificationsTracker';
 
 export const CareerAIView: React.FC = () => {
   const { skills, stats, addSkill, addGoal, setActiveTab, showToast, openAssistantWithPrompt } = useApp();
@@ -422,6 +423,8 @@ export const CareerAIView: React.FC = () => {
           <span>Consult Forge Assistant</span>
         </button>
       </div>
+
+      <IndustryCertificationsTracker />
 
       {/* Mandatory Disclaimer */}
       <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2.5 text-slate-500 text-xs">

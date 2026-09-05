@@ -109,16 +109,30 @@ ACTION_PROJECT: <Specific Project Title> | <Category: Academic/Personal/Capstone
         parts: [{ text: message }],
       });
 
-      const response = await client.models.generateContent({
-        model: 'gemini-3.8-flash',
-        contents,
-        config: {
-          systemInstruction,
-          temperature: 0.7,
-        },
-      });
-
-      const rawText = response.text || '';
+      let rawText = '';
+      try {
+        const response = await client.models.generateContent({
+          model: 'gemini-1.5-flash',
+          contents,
+          config: {
+            systemInstruction,
+            temperature: 0.7,
+          },
+        });
+        rawText = response.text || '';
+      } catch (e: any) {
+        console.warn('Primary model failed, trying fallback:', e.message);
+        // If 1.5-flash fails, fallback to 2.0-flash or 3.6-flash if needed, but 1.5-flash usually works
+        const fallbackResponse = await client.models.generateContent({
+          model: 'gemini-2.0-flash',
+          contents,
+          config: {
+            systemInstruction,
+            temperature: 0.7,
+          },
+        });
+        rawText = fallbackResponse.text || '';
+      }
 
       // Parse structured action tags if present
       const actionGoalMatch = rawText.match(/ACTION_GOAL:\s*([^|\n]+)\s*\|\s*([^|\n]+)\s*\|\s*([^\n]+)/i);

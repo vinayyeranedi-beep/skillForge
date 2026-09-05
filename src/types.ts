@@ -52,7 +52,7 @@ export interface Achievement {
   title: string;
   issuer: string;
   date: string;
-  type: 'Certification' | 'Competition' | 'Publication' | 'Honor' | 'Workshop';
+  type: 'Certification' | 'Competition' | 'Publication' | 'Honor' | 'Workshop' | 'Internship' | 'Experience';
   credentialUrl?: string;
 }
 

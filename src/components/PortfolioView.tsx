@@ -432,12 +432,12 @@ ${goals.map((g) => `- [${g.completed ? 'x' : ' '}] ${g.title} (Target: ${g.targe
           </div>
         </section>
 
-        {/* Section 4: Certifications & Achievements */}
+        {/* Section 4: Experience, Certifications & Achievements */}
         <section className="space-y-3 page-break-inside-avoid">
           <div className="flex items-center justify-between border-b border-slate-100 pb-2">
             <h2 className="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
               <Award className="w-4 h-4 text-amber-500" />
-              <span>Certifications, Competitions & Honors</span>
+              <span>Experience, Certifications & Honors</span>
             </h2>
           </div>
 
@@ -724,6 +724,8 @@ ${goals.map((g) => `- [${g.completed ? 'x' : ' '}] ${g.title} (Target: ${g.targe
                     className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs text-slate-900 focus:ring-2 focus:ring-indigo-500"
                   >
                     <option value="Certification">Certification</option>
+                    <option value="Internship">Internship / Apprenticeship</option>
+                    <option value="Experience">Work Experience</option>
                     <option value="Competition">Competition / Hackathon</option>
                     <option value="Publication">Technical Publication</option>
                     <option value="Honor">Honor / Award</option>

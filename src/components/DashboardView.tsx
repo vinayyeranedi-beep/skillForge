@@ -272,14 +272,15 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               {topSkills.map((skill) => {
                 const percent = getSkillPercent(skill.level, skill.experienceMonths);
                 return (
-                  <div key={skill.id} className="space-y-1.5">
-                    <div className="flex items-center justify-between text-xs">
+                  <div key={skill.id} className="space-y-1.5 group p-1.5 -mx-1.5 rounded-lg hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100">
+                    <div className="flex items-center justify-between text-xs mb-0.5">
                       <div className="flex items-center gap-2">
-                        <span className="font-semibold text-slate-900">{skill.name}</span>
-                        <span className="text-slate-300">•</span>
-                        <span className="text-slate-500 font-medium">{skill.level}</span>
+                        <span className="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">{skill.name}</span>
+                        <span className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 font-semibold text-[9px] uppercase tracking-wider border border-slate-200">
+                          {skill.level}
+                        </span>
                       </div>
-                      <span className="font-semibold text-slate-700">{percent}%</span>
+                      <span className="font-black text-slate-700">{percent}%</span>
                     </div>
                     {/* Dimensional horizontal progress indicator */}
                     <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden track-3d">
