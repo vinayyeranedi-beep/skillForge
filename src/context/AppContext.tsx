@@ -94,11 +94,11 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 const STORAGE_KEYS = {
-  PROFILE: 'skillforge_profile_v1',
-  SKILLS: 'skillforge_skills_v1',
-  PROJECTS: 'skillforge_projects_v1',
-  GOALS: 'skillforge_goals_v1',
-  ACHIEVEMENTS: 'skillforge_achievements_v1',
+  PROFILE: 'skillforge_profile_v2',
+  SKILLS: 'skillforge_skills_v2',
+  PROJECTS: 'skillforge_projects_v2',
+  GOALS: 'skillforge_goals_v2',
+  ACHIEVEMENTS: 'skillforge_achievements_v2',
 };
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {

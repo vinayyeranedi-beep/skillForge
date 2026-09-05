@@ -1,17 +1,17 @@
 import { Skill, Project, LearningGoal, Achievement, StudentProfile, CareerRoleBenchmark } from '../types';
 
 export const INITIAL_PROFILE: StudentProfile = {
-  name: 'Alex Vance',
+  name: 'Vinay',
   headline: 'Final-Year Mechanical & Mechatronics Engineering Student',
   degree: 'Bachelor of Technology in Mechanical Engineering',
   department: 'Department of Mechanical & Mechatronics Engineering',
   institution: 'National Institute of Technology',
   graduationYear: '2026',
-  email: 'alex.vance@campus.edu',
+  email: 'vinay@campus.edu',
   phone: '+1 (555) 234-5678',
   location: 'San Jose, CA',
-  linkedin: 'linkedin.com/in/alex-vance-eng',
-  github: 'github.com/alex-vance-eng',
+  linkedin: 'linkedin.com/in/vinay-eng',
+  github: 'github.com/vinay-eng',
   targetRole: 'Mechanical Design Engineer',
   summary: 'Detail-oriented final-year engineering student with proven hands-on experience in CAD/CAM modeling, finite element analysis (FEA), mechatronics prototyping, and algorithmic simulation. Proven track record through multidisciplinary team capstones and national design competitions. Passionate about solving complex electro-mechanical challenges in automotive and aerospace systems.',
 };

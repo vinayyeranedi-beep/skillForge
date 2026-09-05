@@ -22,6 +22,12 @@ function getAIClient(): GoogleGenAI | null {
   return aiClient;
 }
 
+import { requireAuth, AuthRequest } from './src/middleware/auth';
+import { db } from './src/db';
+import { profiles } from './src/db/schema';
+import { eq } from 'drizzle-orm';
+import { getOrCreateUser } from './src/db/users';
+
 async function startServer() {
   const app = express();
   const PORT = 3000;
@@ -35,6 +41,72 @@ async function startServer() {
       hasGeminiKey: Boolean(process.env.GEMINI_API_KEY),
       time: new Date().toISOString(),
     });
+  });
+
+  // DB Sync Endpoints
+  app.get('/api/profile', requireAuth, async (req: AuthRequest, res) => {
+    try {
+      const uid = req.user!.uid;
+      await getOrCreateUser(uid, req.user!.email || '');
+      
+      const result = await db.select().from(profiles).where(eq(profiles.id, uid));
+      if (result.length > 0) {
+        res.json({ profile: result[0] });
+      } else {
+        res.json({ profile: null });
+      }
+    } catch (e: any) {
+      console.error('Error fetching profile:', e);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+  app.post('/api/profile', requireAuth, async (req: AuthRequest, res) => {
+    try {
+      const uid = req.user!.uid;
+      const { profile } = req.body;
+      
+      await db.insert(profiles).values({
+        id: uid,
+        name: profile.name || '',
+        headline: profile.headline || '',
+        degree: profile.degree || '',
+        department: profile.department || '',
+        institution: profile.institution || '',
+        graduationYear: profile.graduationYear || '',
+        email: profile.email || '',
+        phone: profile.phone || '',
+        location: profile.location || '',
+        linkedin: profile.linkedin || '',
+        github: profile.github || '',
+        targetRole: profile.targetRole || '',
+        summary: profile.summary || '',
+        updatedAt: new Date(),
+      }).onConflictDoUpdate({
+        target: profiles.id,
+        set: {
+          name: profile.name,
+          headline: profile.headline,
+          degree: profile.degree,
+          department: profile.department,
+          institution: profile.institution,
+          graduationYear: profile.graduationYear,
+          email: profile.email,
+          phone: profile.phone,
+          location: profile.location,
+          linkedin: profile.linkedin,
+          github: profile.github,
+          targetRole: profile.targetRole,
+          summary: profile.summary,
+          updatedAt: new Date(),
+        }
+      });
+
+      res.json({ success: true });
+    } catch (e: any) {
+      console.error('Error saving profile:', e);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
   });
 
   // Forge Assistant Career Guidance Endpoint
