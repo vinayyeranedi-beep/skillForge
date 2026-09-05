@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@layer utilities {
+  /* Subtle 3D Depth & Elevation Utilities */
+  .surface-3d {
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 12px -2px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+
+  .surface-3d-hover {
+    transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .surface-3d-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.08), 0 12px 24px -6px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255, 255, 255, 1);
+  }
+
+  .surface-3d-hover:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+
+  .icon-container-3d {
+    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  }
+
+  .btn-3d {
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+  }
+
+  .btn-3d:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(15, 23, 42, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+
+  .btn-3d:active {
+    transform: translateY(0.5px);
+    box-shadow: 0 1px 1px rgba(15, 23, 42, 0.1), inset 0 1px 2px rgba(0, 0, 0, 0.15);
+  }
+
+  .track-3d {
+    box-shadow: inset 0 1.5px 3px rgba(15, 23, 42, 0.08);
+  }
+
+  .fill-3d {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 1px 2px rgba(15, 23, 42, 0.1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .surface-3d-hover,
+    .btn-3d,
+    * {
+      transition-duration: 0.001ms !important;
+      animation-duration: 0.001ms !important;
+      transform: none !important;
+    }
+  }
+
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+    .print-only {
+      display: block !important;
+    }
+    body {
+      background: white !important;
+      color: black !important;
+    }
+    .page-break-inside-avoid {
+      break-inside: avoid;
+    }
+  }
+}

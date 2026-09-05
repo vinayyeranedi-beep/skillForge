@@ -1,0 +1,8 @@
+{
+  "name": "SkillForge",
+  "description": "A centralized skill management, project tracking, learning goal, and professional portfolio platform for engineering students.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
