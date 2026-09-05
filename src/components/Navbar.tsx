@@ -22,12 +22,13 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ onQuickAdd }) => {
-  const { activeTab, setActiveTab, profile } = useApp();
+  const { activeTab, setActiveTab, profile, openAssistantWithPrompt } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [quickAddOpen, setQuickAddOpen] = useState(false);
 
   const navItems: { id: ActiveTab; label: string }[] = [
     { id: 'dashboard', label: 'Dashboard' },
+    { id: 'career-ai', label: 'Career Readiness' },
     { id: 'skills', label: 'Skills' },
     { id: 'projects', label: 'Projects' },
     { id: 'goals', label: 'Goals' },
@@ -78,7 +79,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onQuickAdd }) => {
           </div>
 
           {/* Right Side: Quick Add & Student Profile */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Ask Forge Assistant Trigger Button */}
+            <button
+              id="navbar-forge-assistant-btn"
+              onClick={() => openAssistantWithPrompt()}
+              className="btn-3d inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white shadow-xs transition-colors"
+              title="Ask Forge Assistant"
+            >
+              <Compass className="w-3.5 h-3.5 text-sky-300" />
+              <span className="hidden sm:inline">Ask Forge</span>
+            </button>
+
             {/* Quick Add Button */}
             <div className="relative">
               <button
@@ -184,7 +196,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onQuickAdd }) => {
               </button>
             );
           })}
-          <div className="pt-2 border-t border-slate-100">
+          <div className="pt-2 border-t border-slate-100 space-y-1">
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                openAssistantWithPrompt();
+              }}
+              className="w-full text-left px-3 py-2 rounded-md text-xs font-bold text-indigo-600 bg-indigo-50/70 hover:bg-indigo-100/80 flex items-center gap-2"
+            >
+              <Compass className="w-4 h-4 text-indigo-600" />
+              <span>Ask Forge Assistant</span>
+            </button>
             <button
               onClick={() => handleNavClick('landing')}
               className="w-full text-left px-3 py-2 text-xs text-slate-500 hover:text-slate-900"

@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 
 export const CareerAIView: React.FC = () => {
-  const { skills, stats, addSkill, addGoal, setActiveTab, showToast } = useApp();
+  const { skills, stats, addSkill, addGoal, setActiveTab, showToast, openAssistantWithPrompt } = useApp();
 
   const [selectedBenchmarkId, setSelectedBenchmarkId] = useState<string>(
     CAREER_BENCHMARKS[0].id
@@ -208,14 +208,14 @@ export const CareerAIView: React.FC = () => {
               <button
                 key={benchmark.id}
                 onClick={() => setSelectedBenchmarkId(benchmark.id)}
-                className={`text-left p-3 rounded-xl border transition-all ${
+                className={`text-left p-3.5 rounded-xl border transition-all surface-3d ${
                   isSelected
-                    ? 'border-indigo-600 bg-indigo-50/50 shadow-2xs ring-1 ring-indigo-600'
-                    : 'border-slate-200 hover:border-slate-300 bg-white'
+                    ? 'border-indigo-600 bg-indigo-50/60 shadow-xs ring-2 ring-indigo-500/20 translate-y-[-2px]'
+                    : 'border-slate-200 hover:border-indigo-200 bg-white hover:translate-y-[-2px]'
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-semibold text-slate-400 block truncate">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block truncate">
                     {benchmark.discipline}
                   </span>
                   {isSelected && <Compass className="w-3.5 h-3.5 text-indigo-600" />}
@@ -389,6 +389,38 @@ export const CareerAIView: React.FC = () => {
             )}
           </div>
         </div>
+      </div>
+
+      {/* Ask Forge Assistant — Career Readiness Guide Banner */}
+      <div
+        id="career-ai-forge-assistant-callout"
+        className="bg-gradient-to-r from-indigo-950 via-slate-900 to-indigo-950 text-white p-5 rounded-2xl border border-indigo-900/80 surface-3d shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+      >
+        <div className="flex items-start sm:items-center gap-3.5">
+          <div className="w-11 h-11 rounded-xl bg-indigo-600 text-sky-200 flex items-center justify-center shrink-0 icon-container-3d shadow-inner mt-0.5 sm:mt-0">
+            <Compass className="w-5 h-5" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h3 className="text-sm font-extrabold text-white tracking-tight">
+                Ask Forge Assistant
+              </h3>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-sky-200 border border-indigo-400/30">
+                Gap Consultation
+              </span>
+            </div>
+            <p className="text-xs text-slate-300 mt-1 max-w-xl leading-relaxed">
+              Want personalized recommendations on closing your gaps for <strong className="text-white font-bold">{selectedRole.roleName}</strong>? Ask Forge Assistant to recommend high-impact goals or projects.
+            </p>
+          </div>
+        </div>
+        <button
+          onClick={() => openAssistantWithPrompt(`Which skills am I missing for ${selectedRole.roleName}?`)}
+          className="btn-3d px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shrink-0 shadow-xs transition-colors flex items-center justify-center gap-2"
+        >
+          <Compass className="w-4 h-4 text-sky-200" />
+          <span>Consult Forge Assistant</span>
+        </button>
       </div>
 
       {/* Mandatory Disclaimer */}

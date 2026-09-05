@@ -2,6 +2,7 @@ import React from 'react';
 import { useApp } from '../context/AppContext';
 import { SkillForgeLogo } from './SkillForgeLogo';
 import { ProgressionVisual3D } from './ProgressionVisual3D';
+import { HeroVisual3D } from './HeroVisual3D';
 import {
   Layers,
   FolderGit2,
@@ -11,6 +12,8 @@ import {
   ArrowRight,
   CheckCircle2,
   Sparkles,
+  ShieldCheck,
+  TrendingUp,
 } from 'lucide-react';
 
 export const LandingView: React.FC = () => {
@@ -55,44 +58,67 @@ export const LandingView: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto py-8 sm:py-14 space-y-16 animate-in fade-in duration-300">
-      {/* Hero Section */}
-      <section className="text-center space-y-6 max-w-3xl mx-auto px-4">
-        {/* Prominent SkillForge Logo Showcase */}
-        <div className="flex justify-center pt-2">
-          <div className="p-3 bg-white rounded-2xl border border-slate-200/90 surface-3d inline-flex items-center justify-center">
-            <SkillForgeLogo size="lg" />
+    <div className="max-w-6xl mx-auto py-6 sm:py-10 space-y-16 animate-in fade-in duration-300">
+      {/* 3D Hero Section */}
+      <section className="relative pt-2 pb-6 px-4">
+        <div className="text-center space-y-5 max-w-3xl mx-auto mb-8">
+          {/* Prominent SkillForge Logo Showcase */}
+          <div className="flex justify-center">
+            <div className="p-2.5 bg-white/90 backdrop-blur-sm rounded-2xl border border-slate-200/90 surface-3d inline-flex items-center justify-center animate-float-gentle">
+              <SkillForgeLogo size="lg" />
+            </div>
+          </div>
+
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100/90 border border-slate-200 text-xs font-semibold text-slate-700 shadow-2xs">
+            <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+            <span>Interactive 3D Career Progression Engine</span>
+          </div>
+
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.12]">
+            Build your skills. Track your progress. <span className="text-indigo-600">Be career ready.</span>
+          </h1>
+
+          <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+            SkillForge is the dedicated workspace for engineering students to organize verified skills, showcase applied coursework and projects, and prepare an industry-ready portfolio for campus placements.
+          </p>
+
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+            <button
+              onClick={() => setActiveTab('dashboard')}
+              id="hero-start-tracking-btn"
+              className="btn-3d inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm sm:text-base font-bold rounded-xl transition-all"
+            >
+              <span>Start Tracking</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+
+            <button
+              onClick={() => setActiveTab('career-ai')}
+              id="hero-readiness-benchmark-btn"
+              className="btn-3d inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 text-sm sm:text-base font-semibold rounded-xl transition-all"
+            >
+              <Compass className="w-4 h-4 text-indigo-600" />
+              <span>Explore Career Readiness</span>
+            </button>
           </div>
         </div>
 
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100/90 border border-slate-200 text-xs font-semibold text-slate-700 shadow-2xs">
-          <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-          <span>Student Productivity & Placement Platform</span>
-        </div>
-
-        <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.15]">
-          Build your skills. Track your progress. Be placement ready.
-        </h1>
-
-        <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
-          SkillForge is a dedicated workspace for engineering students to organize technical skills, showcase applied coursework and projects, and prepare an industry-ready portfolio for campus placements.
-        </p>
-
-        <div className="pt-2 flex justify-center">
-          <button
-            onClick={() => setActiveTab('dashboard')}
-            id="hero-start-tracking-btn"
-            className="btn-3d inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm sm:text-base font-bold rounded-xl transition-all"
-          >
-            <span>Start Tracking</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+        {/* 3D Hero Experience Component (Interactive Mouse Parallax + 5 Floating Nodes) */}
+        <div className="mt-4">
+          <HeroVisual3D />
         </div>
       </section>
 
-      {/* 3D-Inspired Progression Structure Visual (Prompt Section 4) */}
+      {/* 4-Phase Progression Structure Visual (Learn → Build → Improve → Career Ready) */}
       <section className="px-4">
         <div className="bg-gradient-to-b from-slate-50 to-slate-100/60 rounded-3xl p-6 sm:p-8 border border-slate-200/80 surface-3d">
+          <div className="text-center mb-6">
+            <span className="text-[11px] font-black uppercase tracking-wider text-indigo-600">The 4-Stage Pathway</span>
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-1">Continuous Career Growth Loop</h2>
+            <p className="text-xs sm:text-sm text-slate-500 max-w-lg mx-auto mt-1">
+              Every skill recorded and capstone completed elevates your measurable placement readiness score.
+            </p>
+          </div>
           <ProgressionVisual3D />
         </div>
       </section>
@@ -112,7 +138,7 @@ export const LandingView: React.FC = () => {
           {capabilities.map((cap, index) => (
             <div
               key={cap.title}
-              className={`bg-white rounded-2xl border border-slate-200/90 p-6 surface-3d surface-3d-hover flex flex-col justify-between space-y-4 ${
+              className={`bg-white rounded-2xl border border-slate-200/90 p-6 surface-3d card-3d-lift flex flex-col justify-between space-y-4 ${
                 index === 4 ? 'md:col-span-2 lg:col-span-1' : ''
               }`}
             >
@@ -137,14 +163,14 @@ export const LandingView: React.FC = () => {
         </div>
       </section>
 
-      {/* Trust & Simplicity Footer Banner */}
+      {/* Trust & Simplicity Action Card */}
       <section className="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-8 surface-3d flex flex-col sm:flex-row sm:items-center justify-between gap-6 mx-4">
         <div className="space-y-1">
           <h3 className="text-base font-bold text-slate-900">
             Ready to organize your engineering profile?
           </h3>
           <p className="text-xs sm:text-sm text-slate-500">
-            All data persists locally in your browser. No account setup required.
+            All records persist safely in your browser. No account setup required.
           </p>
         </div>
         <button
@@ -155,6 +181,20 @@ export const LandingView: React.FC = () => {
           <ArrowRight className="w-4 h-4" />
         </button>
       </section>
+
+      {/* Professional Footer */}
+      <footer className="pt-8 pb-4 border-t border-slate-200 text-center px-4 space-y-2">
+        <div className="flex justify-center items-center gap-2">
+          <SkillForgeLogo size="xs" showWordmark={true} />
+        </div>
+        <p className="text-sm font-bold text-slate-700 tracking-tight">
+          Build skills. Track progress. Become career ready.
+        </p>
+        <p className="text-xs text-slate-400">
+          Engineering Student MVP • Fast, offline-first student career portfolio builder
+        </p>
+      </footer>
     </div>
   );
 };
+

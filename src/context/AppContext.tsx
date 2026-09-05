@@ -67,6 +67,13 @@ interface AppContextType {
   showToast: (toast: Omit<ToastMessage, 'id'>) => void;
   removeToast: (id: string) => void;
 
+  // Forge Assistant state
+  isAssistantOpen: boolean;
+  setIsAssistantOpen: (open: boolean) => void;
+  openAssistantWithPrompt: (prompt?: string) => void;
+  initialAssistantPrompt: string;
+  setInitialAssistantPrompt: (prompt: string) => void;
+
   // Computed metrics
   stats: {
     totalSkills: number;
@@ -97,6 +104,15 @@ const STORAGE_KEYS = {
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [activeTab, setActiveTab] = useState<ActiveTab>('dashboard');
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+  const [isAssistantOpen, setIsAssistantOpen] = useState<boolean>(false);
+  const [initialAssistantPrompt, setInitialAssistantPrompt] = useState<string>('');
+
+  const openAssistantWithPrompt = (prompt?: string) => {
+    if (prompt) {
+      setInitialAssistantPrompt(prompt);
+    }
+    setIsAssistantOpen(true);
+  };
 
   // Initial state loaded with LocalStorage fallback
   const [profile, setProfile] = useState<StudentProfile>(() => {
@@ -558,6 +574,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         toasts,
         showToast,
         removeToast,
+        isAssistantOpen,
+        setIsAssistantOpen,
+        openAssistantWithPrompt,
+        initialAssistantPrompt,
+        setInitialAssistantPrompt,
         stats: {
           totalSkills,
           beginnerCount,

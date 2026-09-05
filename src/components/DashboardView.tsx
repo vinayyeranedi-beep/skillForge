@@ -11,6 +11,7 @@ import {
   CheckCircle2,
   Calendar,
   Check,
+  Compass,
 } from 'lucide-react';
 
 interface DashboardViewProps {
@@ -32,6 +33,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
     stats,
     setActiveTab,
     toggleGoalCompletion,
+    openAssistantWithPrompt,
   } = useApp();
 
   // Active learning goals
@@ -84,18 +86,19 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         <div
           id="metric-skills-card"
           onClick={() => setActiveTab('skills')}
-          className="bg-white p-5 rounded-2xl border border-slate-200/90 surface-3d surface-3d-hover cursor-pointer"
+          className="bg-white p-5 rounded-2xl border border-slate-200/90 surface-3d card-3d-lift cursor-pointer group"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">Skills</span>
-            <div className="w-7 h-7 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center icon-container-3d">
-              <Layers className="w-4 h-4 text-slate-600" />
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Skills Matrix</span>
+            <div className="w-8 h-8 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center icon-container-3d group-hover:scale-105 transition-transform">
+              <Layers className="w-4 h-4 text-indigo-600" />
             </div>
           </div>
-          <div className="mt-2.5">
+          <div className="mt-3">
             <div className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">{stats.totalSkills}</div>
-            <p className="text-xs text-slate-500 mt-1">
-              {stats.intermediateCount + stats.advancedCount} intermediate or advanced
+            <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
+              <span className="text-emerald-600 font-bold">{stats.intermediateCount + stats.advancedCount}</span>
+              <span>Int / Adv proficiencies</span>
             </p>
           </div>
         </div>
@@ -104,18 +107,19 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         <div
           id="metric-projects-card"
           onClick={() => setActiveTab('projects')}
-          className="bg-white p-5 rounded-2xl border border-slate-200/90 surface-3d surface-3d-hover cursor-pointer"
+          className="bg-white p-5 rounded-2xl border border-slate-200/90 surface-3d card-3d-lift cursor-pointer group"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">Projects</span>
-            <div className="w-7 h-7 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center icon-container-3d">
-              <FolderGit2 className="w-4 h-4 text-slate-600" />
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Capstones</span>
+            <div className="w-8 h-8 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center icon-container-3d group-hover:scale-105 transition-transform">
+              <FolderGit2 className="w-4 h-4 text-blue-600" />
             </div>
           </div>
-          <div className="mt-2.5">
+          <div className="mt-3">
             <div className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">{stats.totalProjects}</div>
-            <p className="text-xs text-slate-500 mt-1">
-              {stats.completedProjects} completed work
+            <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
+              <span className="text-emerald-600 font-bold">{stats.completedProjects}</span>
+              <span>completed deliverables</span>
             </p>
           </div>
         </div>
@@ -124,46 +128,43 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         <div
           id="metric-goals-card"
           onClick={() => setActiveTab('goals')}
-          className="bg-white p-5 rounded-2xl border border-slate-200/90 surface-3d surface-3d-hover cursor-pointer"
+          className="bg-white p-5 rounded-2xl border border-slate-200/90 surface-3d card-3d-lift cursor-pointer group"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">Active Goals</span>
-            <div className="w-7 h-7 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center icon-container-3d">
-              <Target className="w-4 h-4 text-slate-600" />
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Milestones</span>
+            <div className="w-8 h-8 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center icon-container-3d group-hover:scale-105 transition-transform">
+              <Target className="w-4 h-4 text-amber-600" />
             </div>
           </div>
-          <div className="mt-2.5">
+          <div className="mt-3">
             <div className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">{stats.activeGoals}</div>
-            <p className="text-xs text-slate-500 mt-1">
-              {stats.completedGoals} completed to date
+            <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
+              <span className="text-emerald-600 font-bold">{stats.completedGoals}</span>
+              <span>milestones achieved</span>
             </p>
           </div>
         </div>
 
-        {/* Metric 4: Career Readiness Score (displays percentage score and status label) */}
+        {/* Metric 4: Career Readiness Score */}
         <div
           id="metric-progress-card"
-          onClick={() => {
-            const card = document.getElementById('career-readiness-interpretation-card');
-            if (card) {
-              card.scrollIntoView({ behavior: 'smooth' });
-            }
-          }}
-          className="bg-white p-5 rounded-2xl border border-slate-200/90 hover:border-indigo-300 surface-3d surface-3d-hover cursor-pointer group"
-          title="Click to view Career Readiness Score Interpretation"
+          onClick={() => setActiveTab('career-ai')}
+          className="bg-white p-5 rounded-2xl border border-slate-200/90 hover:border-indigo-300 surface-3d card-3d-lift cursor-pointer group"
+          title="Click to view Career Readiness Centerpiece"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">Readiness Score</span>
-            <div className="w-7 h-7 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center icon-container-3d">
-              <TrendingUp className="w-4 h-4 text-indigo-600 group-hover:translate-x-0.5 transition-transform" />
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Readiness Score</span>
+            <div className="w-8 h-8 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center icon-container-3d group-hover:scale-105 transition-transform">
+              <TrendingUp className="w-4 h-4 text-indigo-600" />
             </div>
           </div>
-          <div className="mt-2.5">
+          <div className="mt-3">
             <div className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 truncate">
               {stats.scoreInterpretation.displayLabel}
             </div>
-            <p className="text-xs text-slate-500 mt-1 truncate">
-              {stats.scoreInterpretation.rangeText} Band • View details
+            <p className="text-xs text-slate-500 mt-1 truncate flex items-center gap-1">
+              <span className="font-semibold text-indigo-600">{stats.scoreInterpretation.rangeText} Band</span>
+              <span>• Analyze Gaps</span>
             </p>
           </div>
         </div>
@@ -174,6 +175,67 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         onNavigateToAI={() => setActiveTab('career-ai')}
         onNavigateToSkills={() => setActiveTab('skills')}
       />
+
+      {/* Ask Forge Assistant — Personal Career Guide Banner */}
+      <div
+        id="dashboard-forge-assistant-card"
+        className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-5 text-white surface-3d shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
+      >
+        <div className="flex items-start sm:items-center gap-3.5">
+          <div className="w-11 h-11 rounded-xl bg-indigo-600/90 text-white flex items-center justify-center shrink-0 shadow-inner icon-container-3d mt-0.5 sm:mt-0">
+            <Compass className="w-5 h-5 text-sky-200" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2 flex-wrap">
+              <h2 className="text-base font-extrabold text-white tracking-tight">
+                Ask Forge Assistant
+              </h2>
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-sky-200 border border-indigo-400/30">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                Personal Career Guide
+              </span>
+            </div>
+            <p className="text-xs text-slate-300 mt-1 max-w-xl leading-relaxed">
+              Decide what to learn, build, or improve next to accelerate your readiness for{' '}
+              <strong className="text-white font-bold">{profile.targetRole || 'Mechanical Design Engineer'}</strong>.
+            </p>
+            {/* Suggested quick prompt pills */}
+            <div className="flex flex-wrap gap-1.5 mt-2.5">
+              <button
+                onClick={() => openAssistantWithPrompt('What should I learn next?')}
+                className="text-[11px] font-medium bg-white/10 hover:bg-white/20 text-slate-200 px-2.5 py-1 rounded-md transition-colors border border-white/10 flex items-center gap-1"
+              >
+                <span>What should I learn next?</span>
+                <ArrowRight className="w-2.5 h-2.5 opacity-70" />
+              </button>
+              <button
+                onClick={() => openAssistantWithPrompt('What project should I build?')}
+                className="text-[11px] font-medium bg-white/10 hover:bg-white/20 text-slate-200 px-2.5 py-1 rounded-md transition-colors border border-white/10 flex items-center gap-1"
+              >
+                <span>What project should I build?</span>
+                <ArrowRight className="w-2.5 h-2.5 opacity-70" />
+              </button>
+              <button
+                onClick={() => openAssistantWithPrompt('How can I improve my readiness score?')}
+                className="text-[11px] font-medium bg-white/10 hover:bg-white/20 text-slate-200 px-2.5 py-1 rounded-md transition-colors border border-white/10 hidden sm:flex items-center gap-1"
+              >
+                <span>How can I improve my readiness score?</span>
+                <ArrowRight className="w-2.5 h-2.5 opacity-70" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 w-full md:w-auto shrink-0 pt-2 md:pt-0">
+          <button
+            onClick={() => openAssistantWithPrompt()}
+            className="btn-3d w-full md:w-auto px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-2"
+          >
+            <Compass className="w-4 h-4 text-sky-200" />
+            <span>Consult Assistant</span>
+          </button>
+        </div>
+      </div>
 
       {/* Main Content Layout (Secondary Information) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

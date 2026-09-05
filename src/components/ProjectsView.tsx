@@ -313,22 +313,22 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({
             <div
               key={project.id}
               id={`project-card-${project.id}`}
-              className="bg-white rounded-xl p-5 border border-slate-200 hover:border-slate-300 transition-all flex flex-col justify-between space-y-4"
+              className="bg-white rounded-2xl p-5 border border-slate-200/90 surface-3d card-3d-lift flex flex-col justify-between space-y-4 group"
             >
               <div className="space-y-3">
                 {/* Title & Status */}
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wider block">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
                       {project.category}
                     </span>
-                    <h3 className="text-base font-bold text-slate-900 mt-0.5">
+                    <h3 className="text-base font-bold text-slate-900 mt-0.5 group-hover:text-indigo-600 transition-colors">
                       {project.title}
                     </h3>
                   </div>
 
                   <span
-                    className={`text-[10px] font-semibold px-2 py-0.5 rounded shrink-0 ${
+                    className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full badge-3d shrink-0 ${
                       statusBadgeStyles[project.status]
                     }`}
                   >
@@ -344,14 +344,14 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({
                 {/* Skills Used (Chips) */}
                 {project.skills.length > 0 && (
                   <div className="space-y-1.5 pt-1">
-                    <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wider block">
-                      Skills Used:
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                      Skills Applied
                     </span>
-                    <div className="flex flex-wrap gap-1">
+                    <div className="flex flex-wrap gap-1.5">
                       {project.skills.map((s) => (
                         <span
                           key={s}
-                          className="text-[11px] font-medium px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200/80"
+                          className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-slate-50 text-slate-700 border border-slate-200/90 badge-3d shadow-2xs"
                         >
                           {s}
                         </span>
@@ -375,7 +375,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({
                       href={project.githubUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="ml-2 text-slate-500 hover:text-indigo-600 font-medium inline-flex items-center gap-1"
+                      className="ml-2 text-slate-500 hover:text-indigo-600 font-medium inline-flex items-center gap-1 transition-colors"
                     >
                       <ExternalLink className="w-3 h-3" />
                       <span>Code</span>
@@ -386,7 +386,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => openEditModal(project)}
-                    className="p-1.5 rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-50 transition-colors"
+                    className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
                     title="Edit project"
                     aria-label={`Edit ${project.title}`}
                   >
@@ -394,7 +394,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({
                   </button>
                   <button
                     onClick={() => setProjectToDelete(project)}
-                    className="p-1.5 rounded-md text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                    className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
                     title="Delete project"
                     aria-label={`Delete ${project.title}`}
                   >

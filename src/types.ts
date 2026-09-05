@@ -99,3 +99,31 @@ export type ReadinessStatus =
   | 'Highly Prepared';
 
 export type ActiveTab = 'landing' | 'dashboard' | 'skills' | 'projects' | 'goals' | 'portfolio' | 'career-ai' | 'about';
+
+export type AssistantActionType = 'create_goal' | 'add_project' | 'view_skills' | 'view_readiness' | 'view_roles';
+
+export interface AssistantActionItem {
+  id: string;
+  type: AssistantActionType;
+  label: string;
+  payload?: {
+    title?: string;
+    description?: string;
+    skill?: string;
+    priority?: GoalPriority;
+    category?: Project['category'];
+    skills?: string[];
+    roleId?: string;
+  };
+}
+
+export interface AssistantMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: string;
+  actions?: AssistantActionItem[];
+  fallbackUsed?: boolean;
+}
+
+export type VoiceState = 'idle' | 'listening' | 'processing' | 'speaking';

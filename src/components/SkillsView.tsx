@@ -294,21 +294,21 @@ export const SkillsView: React.FC<SkillsViewProps> = ({
               <div
                 key={skill.id}
                 id={`skill-card-${skill.id}`}
-                className="bg-white rounded-xl p-5 border border-slate-200 hover:border-slate-300 transition-all flex flex-col justify-between space-y-4"
+                className="bg-white rounded-2xl p-5 border border-slate-200/90 surface-3d card-3d-lift flex flex-col justify-between space-y-4 group"
               >
                 <div className="space-y-3">
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wider block">
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
                         {skill.category}
                       </span>
-                      <h3 className="text-base font-bold text-slate-900 mt-0.5">
+                      <h3 className="text-base font-bold text-slate-900 mt-0.5 group-hover:text-indigo-600 transition-colors">
                         {skill.name}
                       </h3>
                     </div>
 
                     <span
-                      className={`text-[10px] font-semibold px-2 py-0.5 rounded ${
+                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full badge-3d ${
                         levelBadgeStyles[skill.level]
                       }`}
                     >
@@ -316,15 +316,15 @@ export const SkillsView: React.FC<SkillsViewProps> = ({
                     </span>
                   </div>
 
-                  {/* Clean horizontal progress indicator */}
-                  <div className="space-y-1">
-                    <div className="flex justify-between text-[11px] text-slate-500 font-medium">
+                  {/* Clean 3D progress indicator */}
+                  <div className="space-y-1.5">
+                    <div className="flex justify-between text-[11px] text-slate-500 font-semibold">
                       <span>Proficiency</span>
-                      <span>{percent}%</span>
+                      <span className="text-indigo-600 font-bold">{percent}%</span>
                     </div>
-                    <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                    <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden track-3d">
                       <div
-                        className="bg-indigo-600 h-full rounded-full transition-all duration-300"
+                        className="bg-indigo-600 h-full rounded-full fill-3d transition-all duration-700 ease-out"
                         style={{ width: `${percent}%` }}
                       />
                     </div>
@@ -340,7 +340,7 @@ export const SkillsView: React.FC<SkillsViewProps> = ({
                 <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
                   <div className="flex items-center gap-2">
                     {skill.experienceMonths !== undefined && skill.experienceMonths > 0 && (
-                      <span className="text-[11px] text-slate-400">
+                      <span className="text-[11px] text-slate-400 font-medium">
                         {skill.experienceMonths >= 12
                           ? `${(skill.experienceMonths / 12).toFixed(1)} yrs`
                           : `${skill.experienceMonths} mos`}
@@ -348,10 +348,10 @@ export const SkillsView: React.FC<SkillsViewProps> = ({
                     )}
                     {projectCount > 0 && (
                       <span
-                        className="inline-flex items-center gap-1 text-[10px] font-medium text-slate-600 bg-slate-50 px-2 py-0.5 rounded border border-slate-200"
+                        className="inline-flex items-center gap-1 text-[10px] font-semibold text-slate-700 bg-slate-50 px-2 py-0.5 rounded-md border border-slate-200 shadow-2xs"
                         title={`Applied in ${projectCount} project(s)`}
                       >
-                        <FolderGit2 className="w-3 h-3 text-slate-400" />
+                        <FolderGit2 className="w-3 h-3 text-indigo-500" />
                         {projectCount} {projectCount === 1 ? 'project' : 'projects'}
                       </span>
                     )}
@@ -360,7 +360,7 @@ export const SkillsView: React.FC<SkillsViewProps> = ({
                   <div className="flex items-center gap-1">
                     <button
                       onClick={() => openEditModal(skill)}
-                      className="p-1.5 rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-50 transition-colors"
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
                       title="Edit skill"
                       aria-label={`Edit ${skill.name}`}
                     >
@@ -368,7 +368,7 @@ export const SkillsView: React.FC<SkillsViewProps> = ({
                     </button>
                     <button
                       onClick={() => setSkillToDelete(skill)}
-                      className="p-1.5 rounded-md text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
                       title="Delete skill"
                       aria-label={`Delete ${skill.name}`}
                     >
